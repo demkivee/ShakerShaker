@@ -1,8 +1,40 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+  background-color: #F4F4F2;
+  background-repeat: repeat;
+  text-shadow: #FFFFFF 0px 1px 0px;
+  margin: 0%;
+  font-family: "Georgia", "Times", serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: #00B7FF;
+a{
+  text-decoration: none;
+}
+
+.home-banner{
+  max-height: 720px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 300px;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #F4F4F2;
 }
