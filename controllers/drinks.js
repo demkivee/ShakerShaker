@@ -1,17 +1,12 @@
-const Drinks = require('../models').Drinks;
+var express = require('express');
+var router = express.Router();
 
-module.exports = {
+const drinks = require('../repositories/drinks')
 
-    
-    add(req, res) {
-        return Drinks
-          .create({
-            drinkId: req.body.drinkId,
-            drinkName: req.body.drinkName,
-            drinkType: req.body.drinkType,
-          })
-          .then((classroom) => res.status(201).send(classroom))
-          .catch((error) => res.status(400).send(error));
-      },
+router.get('/', drinks.getDrinkss)
+router.get('/:id', drinks.getDrinksById)
+router.post('/', drinks.createDrinks)
+router.put('/:id', drinks.updateDrinks)
+router.delete('/:id', drinks.deleteDrinks)
 
-};
+module.exports = router;

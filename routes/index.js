@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,8 +29,10 @@ router.get('/reviews', function(req, res, next) {
   res.render('tableView', { title: 'reviews' });
 });
 
+router.use('/api', require('../controllers/users'));
+
 router.get('/users', function(req, res, next) {
-  res.render('tableView', { title: 'users' });
+   res.render('tableView', { title: 'users' });
 });
 
 module.exports = router;

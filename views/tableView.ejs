@@ -13,6 +13,11 @@
     </div>
 
     <h1><%= title %></h1>
+    <form action="/<%= title %>" method="POST">
+        <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="quote" name="quote">
+        <button type="submit">Submit</button>
+      </form>
 </body>
 
 </html>
