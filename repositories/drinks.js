@@ -31,19 +31,22 @@ const getDrinkById = (request, response) => {
 }
 
 const createDrink = (request, response) => {
-  const { name, type } = request.body
+  const id = request.body.drink_id,
+    name = request.body.drink_name,
+    type  = request.body.drink_type
 
   pool.query('INSERT INTO drinks (drink_id, drink_name, drink_type) VALUES ($1, $2, $3)', [id, name, type], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Drink added with ID: ${result.insertId}`)
+    response.status(201).send(`Drink added with ID: ${id}`)
   })
 }
 
 const updateDrink = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, type } = request.body
+  const name = request.body.drink_name,
+    type  = request.body.drink_type
 
   pool.query(
     'UPDATE drinks SET drink_name = $1, drink_type = $2 WHERE drink_id = $3',

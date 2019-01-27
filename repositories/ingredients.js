@@ -31,19 +31,20 @@ const getIngredientById = (request, response) => {
 }
 
 const createIngredient = (request, response) => {
-  const { id, name } = request.body
+  const id = request.body.ingredient_id,
+    name = request.body.ingredient_name;
 
   pool.query('INSERT INTO ingredients (ingredient_id, ingredient_name) VALUES ($1, $2)', [id, name], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Ingredient added with ID: ${result.insertId}`)
+    response.status(201).send(`Ingredient added with ID: ${id}`)
   })
 }
 
 const updateIngredient = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name } = request.body
+  const name  = request.body.ingredient_name
 
   pool.query(
     'UPDATE ingredients SET ingredient_name = $1 WHERE ingredient_id = $2',

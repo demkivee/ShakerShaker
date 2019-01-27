@@ -33,7 +33,10 @@ const getReviewById = (request, response) => {
 }
 
 const createReview = (request, response) => {
-  const { review_user, review_drink, review_mark, review_text } = request.body
+  var review_user = request.body.review_user,
+    review_drink = request.body.review_drink,
+    review_mark = request.body.review_mark,
+    review_text = request.body.review_text;
 
   pool.query('INSERT INTO reviews (review_user, review_drink, review_mark, review_text) VALUES ($1, $2, $3,$4)',
     [review_user, review_drink, review_mark, review_text], (error, results) => {
@@ -47,7 +50,8 @@ const createReview = (request, response) => {
 const updateReview = (request, response) => {
   const review_user = parseInt(request.params.review_user)
   const review_drink = parseInt(request.params.review_drink)
-  const { review_mark, review_text } = request.body
+  var review_mark = request.body.review_mark,
+    review_text = request.body.review_text;
 
   pool.query(
     'UPDATE reviews SET review_mark = $1, review_text = $2 WHERE review_user = $3 AND review_drink = $4',

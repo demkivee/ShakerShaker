@@ -31,19 +31,20 @@ const getReviewMarkById = (request, response) => {
 }
 
 const createReviewMark = (request, response) => {
-  const name  = request.body
+  const name  = request.body.review_mark,
+    id = request.body.review_mark_id
 
   pool.query('INSERT INTO review_marks (review_mark_id, review_mark) VALUES ($1, $2)', [id, name], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`ReviewMark added with ID: ${result.insertId}`)
+    response.status(201).send(`ReviewMark added with ID: ${id}`)
   })
 }
 
 const updateReviewMark = (request, response) => {
   const id = parseInt(request.params.id)
-  const name = request.body
+  const name = request.body.review_mark
 
   pool.query(
     'UPDATE review_marks SET review_mark = $1 WHERE id = $2',

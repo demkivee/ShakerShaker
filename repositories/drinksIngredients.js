@@ -32,7 +32,9 @@ const getDrinkIngredientById = (request, response) => {
 }
 
 const createDrinkIngredient = (request, response) => {
-  const { drink_id, ingredient_id } = request.body
+  const drink_id = request.body.drink_id
+  const ingredient_id = request.body.ingredient_id
+
 
   pool.query('INSERT INTO drinks_ingredients (drink_id, ingredient_id) VALUES ($1, $2)', [drink_id, ingredient_id], (error, results) => {
     if (error) {
@@ -50,7 +52,7 @@ const deleteDrinkIngredient = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`DrinkIngredient deleted with ID: ${id}`)
+    response.status(200).send(`DrinkIngredient deleted`)
   })
 }
 
