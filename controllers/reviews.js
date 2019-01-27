@@ -3,10 +3,10 @@ var router = express.Router();
 
 const review = require('../repositories/reviews')
 
-router.get('/', review.getReviews)
-router.get('/:id', review.getReviewById)
+router.get('/', review.getReview)
+router.get('/:review_user&:review_drink', review.getReviewById)
 router.post('/', review.createReview)
-router.put('/:id', review.updateReview)
-router.delete('/:id', review.deleteReview)
+router.put('/:review_user&:review_drink', review.updateReview)
+router.delete('/:review_user&:review_drink', review.deleteReview)
 
 module.exports = router;

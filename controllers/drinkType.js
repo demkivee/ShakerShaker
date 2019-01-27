@@ -3,7 +3,7 @@ var router = express.Router();
 
 const drinkType = require('../repositories/drinkType')
 
-router.get('/', drinkType.getDrinkTypes)
+router.get('/', drinkType.getDrinkType)
 router.get('/:id', drinkType.getDrinkTypeById)
 router.post('/', drinkType.createDrinkType)
 router.put('/:id', drinkType.updateDrinkType)

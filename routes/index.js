@@ -1,38 +1,38 @@
 var router = require('express').Router();
+const https = require('https');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+router.use('/api/drinks', require('../controllers/drinks'));
+
+router.use('/api/drinksIngredients', require('../controllers/drinksIngredients'));
+
+router.use('/api/drinkType', require('../controllers/drinkType'));
+
+router.use('/api/ingredients', require('../controllers/ingredients'));
+
+router.use('/api/reviewMarks', require('../controllers/reviewMarks'));
+
+router.use('/api/reviews', require('../controllers/reviews'));
+
+router.use('/api/users', require('../controllers/users'));
+
+
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/drinks', function(req, res, next) {
-  res.render('tableView', { title: 'drinks' });
-});
+router.use('/drinks', require('../controllers/drinks'));
 
-router.get('/drinksIngredients', function(req, res, next) {
-  res.render('tableView', { title: 'drinksIngredients' });
-});
+router.use('/drinksIngredients', require('../controllers/drinksIngredients'));
 
-router.get('/drinkType', function(req, res, next) {
-  res.render('tableView', { title: 'drinkType' });
-});
+router.use('/drinkType', require('../controllers/drinkType'));
 
-router.get('/ingredients', function(req, res, next) {
-  res.render('tableView', { title: 'ingredients' });
-});
+router.use('/ingredients', require('../controllers/ingredients'));
 
-router.get('/reviewMarks', function(req, res, next) {
-  res.render('tableView', { title: 'reviewMarks' });
-});
+router.use('/reviewMarks', require('../controllers/reviewMarks'));
 
-router.get('/reviews', function(req, res, next) {
-  res.render('tableView', { title: 'reviews' });
-});
+router.use('/reviews', require('../controllers/reviews'));
 
-router.use('/api', require('../controllers/users'));
+router.use('/users', require('../controllers/users'));
 
-router.get('/users', function(req, res, next) {
-   res.render('tableView', { title: 'users' });
-});
 
 module.exports = router;

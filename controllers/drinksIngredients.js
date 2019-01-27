@@ -3,10 +3,11 @@ var router = express.Router();
 
 const drinksIngredients = require('../repositories/drinksIngredients')
 
-router.get('/', drinksIngredients.getDrinksIngredientss)
-router.get('/:id', drinksIngredients.getDrinksIngredientsById)
-router.post('/', drinksIngredients.createDrinksIngredients)
-router.put('/:id', drinksIngredients.updateDrinksIngredients)
-router.delete('/:id', drinksIngredients.deleteDrinksIngredients)
+router.get('/', drinksIngredients.getDrinkIngredient)
+router.get('/:drink_id&:ingredient_id', drinksIngredients.getDrinkIngredientById)
+router.post('/', drinksIngredients.createDrinkIngredient)
+// Not sure if many-to-many needs update
+// router.put('/:id', drinksIngredients.updateDrinkIngredient)
+router.delete('/:drink_id&:ingredient_id', drinksIngredients.deleteDrinkIngredient)
 
 module.exports = router;

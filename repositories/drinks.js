@@ -9,16 +9,17 @@ const pool = new Pool({
 })
 
 
-const getDrinkss = (request, response) => {
+const getDrink = (request, response) => {
   pool.query('SELECT * FROM drinks ORDER BY drink_id ASC', (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    // response.status(200).json(results.rows)
+    response.render('tableView', { title: 'drinks', rows: JSON.stringify(results.rows) });
   })
 }
 
-const getDrinksById = (request, response) => {
+const getDrinkById = (request, response) => {
   const id = parseInt(request.params.id)
 
   pool.query('SELECT * FROM drinks WHERE drink_id = $1', [id], (error, results) => {
@@ -29,49 +30,49 @@ const getDrinksById = (request, response) => {
   })
 }
 
-const createDrinks = (request, response) => {
-  const { name, email } = request.body
+const createDrink = (request, response) => {
+  const { name, type } = request.body
 
-  pool.query('INSERT INTO drinks (drink_id, drink_name, drink_type) VALUES ($1, $2, $3)', [id, name, pass], (error, results) => {
+  pool.query('INSERT INTO drinks (drink_id, drink_name, drink_type) VALUES ($1, $2, $3)', [id, name, type], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Drinks added with ID: ${result.insertId}`)
+    response.status(201).send(`Drink added with ID: ${result.insertId}`)
   })
 }
 
-const updateDrinks = (request, response) => {
+const updateDrink = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, email } = request.body
+  const { name, type } = request.body
 
   pool.query(
-    'UPDATE drinks SET name = $1, pass = $2 WHERE id = $3',
-    [name, pass, id],
+    'UPDATE drinks SET drink_name = $1, drink_type = $2 WHERE drink_id = $3',
+    [name, type, id],
     (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Drinks modified with ID: ${id}`)
+      response.status(200).send(`Drink modified with ID: ${id}`)
     }
   )
 }
 
-const deleteDrinks = (request, response) => {
+const deleteDrink = (request, response) => {
   const id = parseInt(request.params.id)
 
   pool.query('DELETE FROM drinks WHERE drink_id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Drinks deleted with ID: ${id}`)
+    response.status(200).send(`Drink deleted with ID: ${id}`)
   })
 }
 
 
 module.exports = {
-  getDrinkss,
-  getDrinksById,
-  createDrinks,
-  updateDrinks,
-  deleteDrinks,
+  getDrink,
+  getDrinkById,
+  createDrink,
+  updateDrink,
+  deleteDrink,
 }

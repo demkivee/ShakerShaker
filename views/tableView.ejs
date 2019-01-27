@@ -4,20 +4,55 @@
 <head>
     <meta charset="utf-8">
     <title>ShakeMaker</title>
-    <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="../stylesheets/style.css" type="text/css">
 </head>
 
 <body>
     <div class="banner">
-        <img class="home-banner" src="/images/homeBanner.jpg" />
+        <img class="home-banner" src="../images/homeBanner.jpg" />
     </div>
-
-    <h1><%= title %></h1>
-    <form action="/<%= title %>" method="POST">
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="quote" name="quote">
-        <button type="submit">Submit</button>
-      </form>
+    
+    <div class="main-content">
+        <h1>Table <%= title %></h1>
+        <div id="table-wrapper">
+        </div>
+    </div>
 </body>
+
+<script>
+    var content = JSON.parse('<%- rows %>');
+
+    document.getElementById('table-wrapper').innerHTML = 
+        json2table(content);
+
+    function json2table(json) {
+        var cols = Object.keys(json[0]);
+
+        var headerRow = '';
+        var bodyRows = '';
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        cols.map(function (col) {
+            headerRow += '<th>' + capitalizeFirstLetter(col) + '</th>';
+        });
+
+        json.map(function (row) {
+            bodyRows += '<tr>';
+
+            cols.map(function (colName) {
+                bodyRows += '<td>' + row[colName] + '</td>';
+            })
+
+            bodyRows += '</tr>';
+        });
+
+        return '<table class="data-table"><thead><tr>' +
+            headerRow + '</tr></thead><tbody>' +
+            bodyRows + '</tbody></table>';
+    }
+</script>
 
 </html>

@@ -9,8 +9,22 @@ const pool = new Pool({
 })
 
 
-const getReviews = (request, response) => {
-  pool.query('SELECT * FROM reviews ORDER BY drink_id ASC', (error, results) => {
+const getReview = (request, response) => {
+  pool.query('SELECT * FROM reviews ORDER BY review_user, review_drink', (error, results) => {
+    if (error) {
+      throw error
+    }
+    // response.status(200).json(results.rows)
+    response.render('tableView', { title: 'reviews', rows: JSON.stringify(results.rows) })
+  })
+}
+
+const getReviewById = (request, response) => {
+  const review_user = parseInt(request.params.review_user)
+  const review_drink = parseInt(request.params.review_drink)
+
+  pool.query('SELECT * FROM reviews WHERE review_user = $1 AND review_drink = $2', 
+    [review_user, review_drink], (error, results) => {
     if (error) {
       throw error
     }
@@ -18,60 +32,52 @@ const getReviews = (request, response) => {
   })
 }
 
-const getReviewsById = (request, response) => {
-  const id = parseInt(request.params.id)
+const createReview = (request, response) => {
+  const { review_user, review_drink, review_mark, review_text } = request.body
 
-  pool.query('SELECT * FROM reviews WHERE drink_id = $1', [id], (error, results) => {
+  pool.query('INSERT INTO reviews (review_user, review_drink, review_mark, review_text) VALUES ($1, $2, $3,$4)',
+    [review_user, review_drink, review_mark, review_text], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    response.status(201).send(`Review added`)
   })
 }
 
-const createReviews = (request, response) => {
-  const { name, email } = request.body
-
-  pool.query('INSERT INTO reviews (drink_id, drink_name, reviews) VALUES ($1, $2, $3)', [id, name, pass], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(201).send(`Reviews added with ID: ${result.insertId}`)
-  })
-}
-
-const updateReviews = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { name, email } = request.body
+const updateReview = (request, response) => {
+  const review_user = parseInt(request.params.review_user)
+  const review_drink = parseInt(request.params.review_drink)
+  const { review_mark, review_text } = request.body
 
   pool.query(
-    'UPDATE reviews SET name = $1, pass = $2 WHERE id = $3',
-    [name, pass, id],
+    'UPDATE reviews SET review_mark = $1, review_text = $2 WHERE review_user = $3 AND review_drink = $4',
+    [review_mark, review_text, review_user, review_drink],
     (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Reviews modified with ID: ${id}`)
+      response.status(200).send(`Review modified`)
     }
   )
 }
 
-const deleteReviews = (request, response) => {
-  const id = parseInt(request.params.id)
+const deleteReview = (request, response) => {
+  const review_user = parseInt(request.params.review_user)
+  const review_drink = parseInt(request.params.review_drink)
 
-  pool.query('DELETE FROM reviews WHERE drink_id = $1', [id], (error, results) => {
+  pool.query('DELETE FROM reviews WHERE review_user = $1 AND review_drink = $2', [review_user,review_drink], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Reviews deleted with ID: ${id}`)
+    response.status(200).send(`Review deleted`)
   })
 }
 
 
 module.exports = {
-  getReviewss,
-  getReviewsById,
-  createReviews,
-  updateReviews,
-  deleteReviews,
+  getReview,
+  getReviewById,
+  createReview,
+  updateReview,
+  deleteReview,
 }

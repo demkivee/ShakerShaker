@@ -10,18 +10,19 @@ const pool = new Pool({
 
 
 const getDrinkType = (request, response) => {
-  pool.query('SELECT * FROM drink_type ORDER BY drink_id ASC', (error, results) => {
+  pool.query('SELECT * FROM drink_type ORDER BY type_id ASC', (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    // response.status(200).json(results.rows)
+    response.render('tableView', { title: 'drinkType', rows: JSON.stringify(results.rows) });
   })
 }
 
 const getDrinkTypeById = (request, response) => {
   const id = parseInt(request.params.id)
 
-  pool.query('SELECT * FROM drink_type WHERE drink_id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM type_id WHERE type_id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
@@ -30,9 +31,9 @@ const getDrinkTypeById = (request, response) => {
 }
 
 const createDrinkType = (request, response) => {
-  const { name, email } = request.body
+  const name = request.body
 
-  pool.query('INSERT INTO drink_type (drink_id, drink_name, drink_type) VALUES ($1, $2, $3)', [id, name, pass], (error, results) => {
+  pool.query('INSERT INTO drink_type (type_id, type_name) VALUES ($1, $2)', [id, name], (error, results) => {
     if (error) {
       throw error
     }
@@ -42,11 +43,11 @@ const createDrinkType = (request, response) => {
 
 const updateDrinkType = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, email } = request.body
+  const name = request.body
 
   pool.query(
-    'UPDATE drink_type SET name = $1, pass = $2 WHERE id = $3',
-    [name, pass, id],
+    'UPDATE drink_type SET type_name = $1 WHERE id = $2',
+    [name, id],
     (error, results) => {
       if (error) {
         throw error
@@ -59,7 +60,7 @@ const updateDrinkType = (request, response) => {
 const deleteDrinkType = (request, response) => {
   const id = parseInt(request.params.id)
 
-  pool.query('DELETE FROM drink_type WHERE drink_id = $1', [id], (error, results) => {
+  pool.query('DELETE FROM drink_type WHERE type_id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
@@ -69,7 +70,7 @@ const deleteDrinkType = (request, response) => {
 
 
 module.exports = {
-  getDrinkTypes,
+  getDrinkType,
   getDrinkTypeById,
   createDrinkType,
   updateDrinkType,

@@ -14,7 +14,8 @@ const getUsers = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    //response.status(200).json(results.rows)
+    response.render('tableView', { title: 'users', rows: JSON.stringify(results.rows) });
   })
 }
 
@@ -30,7 +31,7 @@ const getUserById = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  const { name, email } = request.body
+  const { id, name, pass } = request.body
 
   pool.query('INSERT INTO users (user_id, user_name, user_pass) VALUES ($1, $2, $3)', [id, name, pass], (error, results) => {
     if (error) {
@@ -42,10 +43,10 @@ const createUser = (request, response) => {
 
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, email } = request.body
+  const { name, pass } = request.body
 
   pool.query(
-    'UPDATE users SET name = $1, pass = $2 WHERE id = $3',
+    'UPDATE users SET user_name = $1, user_pass = $2 WHERE user_id = $3',
     [name, pass, id],
     (error, results) => {
       if (error) {

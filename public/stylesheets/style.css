@@ -4,7 +4,7 @@ body{
   text-shadow: #FFFFFF 0px 1px 0px;
   margin: 0%;
   font-family: "Georgia", "Times", serif;
-  -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 
 a{
@@ -13,6 +13,12 @@ a{
 
 .home-banner{
   max-height: 720px;
+}
+
+.main-content{
+  top: 20px;
+  right: 20px;
+  position: absolute;
 }
 
 ul {
@@ -37,4 +43,29 @@ li a {
 li a:hover {
   font-size: 30px;
   background: #F4F4F2;
+}
+
+table {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 20px;
+	margin: 45px;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+th {
+	font-size: 26px;
+	font-weight: normal;
+	padding: 10px 8px;
+	border-bottom: 2px solid;
+}
+
+td {
+	border-bottom: 1px solid #ccc;
+	padding: 6px 8px;
+}
+
+h1 {
+  text-align: right;
 }
