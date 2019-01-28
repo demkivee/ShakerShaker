@@ -6,24 +6,37 @@
     <title>ShakeMaker</title>
     <link rel="stylesheet" href="../stylesheets/style.css" type="text/css">
 </head>
-
 <body>
     <div class="banner">
         <img class="home-banner" src="../images/homeBanner.jpg" />
     </div>
-    
+
     <div class="main-content">
-        <h1>Table <%= title %></h1>
+        <h1>Table
+            <%= title %>
+        </h1>
+        
         <div id="table-wrapper">
         </div>
+        
+        <div id="form-wrapper">
+            <form name="post-form" method="POST" action="/user">
+                <table id="form-table">
+                </table>
+            </form>
+        </div>
     </div>
+
 </body>
 
 <script>
     var content = JSON.parse('<%- rows %>');
+    var scheme = JSON.parse('<%- scheme %>');
 
     document.getElementById('table-wrapper').innerHTML = 
         json2table(content);
+    document.getElementById('form-table').innerHTML = 
+        json2form(scheme);
 
     function json2table(json) {
         var cols = Object.keys(json[0]);
@@ -52,6 +65,18 @@
         return '<table class="data-table"><thead><tr>' +
             headerRow + '</tr></thead><tbody>' +
             bodyRows + '</tbody></table>';
+    }
+
+    function json2form(json) {
+        var formRows = '';
+
+        for (key in json[0]) {
+            formRows += '<tr><td>';
+            formRows += key + '</td>';
+            formRows += '<td><input type="'+ json[0][key] + '" name="' + key +'" required="required"></td></td></tr>';
+        }
+        formRows+='<tr><td/><td><input type="submit" value="Submit"></td></tr>';
+        return formRows;
     }
 </script>
 

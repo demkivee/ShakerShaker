@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool
+const drinksIngredientsModel = require('../models/DrinksIngredients')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,
@@ -15,7 +16,11 @@ const getDrinkIngredient = (request, response) => {
       throw error
     }
     // response.status(200).json(results.rows)
-    response.render('tableView', { title: 'drinksIngredients', rows: JSON.stringify(results.rows) });
+    response.render('tableView', { 
+      title: 'drinksIngredients', 
+      rows: JSON.stringify(results.rows),
+      scheme: JSON.stringify(drinksIngredientsModel.scheme())
+    });
   })
 }
 

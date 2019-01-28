@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool
+const userModel = require('../models/Users')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,
@@ -9,13 +10,14 @@ const pool = new Pool({
 })
 
 
+
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM users ORDER BY user_id ASC', (error, results) => {
     if (error) {
       throw error
     }
     //response.status(200).json(results.rows)
-    response.render('tableView', { title: 'users', rows: JSON.stringify(results.rows) });
+    response.render('tableView', { title: 'users', rows: JSON.stringify(results.rows), scheme: JSON.stringify(userModel.scheme())});
   })
 }
 

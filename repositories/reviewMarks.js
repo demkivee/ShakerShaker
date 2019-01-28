@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool
+const reviewMarkModel = require('../models/ReviewMarks')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,
@@ -15,7 +16,12 @@ const getReviewMark = (request, response) => {
       throw error
     }
     // response.status(200).json(results.rows)
-    response.render('tableView', { title: 'reviewMarks', rows: JSON.stringify(results.rows) });
+    response.render('tableView', {
+        title: 'reviewMarks',
+        rows: JSON.stringify(results.rows),
+        scheme: JSON.stringify(reviewMarkModel.scheme())
+      }
+    );
   })
 }
 

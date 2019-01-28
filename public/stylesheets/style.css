@@ -68,3 +68,24 @@ td {
 h1 {
   text-align: right;
 }
+
+#form-wrapper{
+  float: right;
+}
+
+input{
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: inherit;
+}
+
+input[type=submit] {
+  float: left;
+  padding: 10px 30px;
+  letter-spacing: 4px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+  
