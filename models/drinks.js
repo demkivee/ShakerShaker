@@ -3,22 +3,18 @@
 module.exports = {
   function(sequelize, DataTypes) {
     return sequelize.define('drinks', {
-      drinkID: {
+      drink_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      drinkName: {
+      drink_name: {
         type: DataTypes.TEXT,
         allowNull: false
       },
-      drinkType: {
+      drink_type: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'drinkType',
-          key: 'typeID'
-        }
+        allowNull: true
       }
     }, {
         tableName: 'drinks'
@@ -27,9 +23,9 @@ module.exports = {
   scheme() {
     return [
       {
-        drinkID: "number",
-        drinkName: "number",
-        drinkType: "number"
+        drink_id: "number",
+        drink_name: "number",
+        drink_type: "number"
       }
     ]
   }

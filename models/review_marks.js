@@ -2,25 +2,25 @@
 
 module.exports = {
   function(sequelize, DataTypes) {
-    return sequelize.define('reviewMarks', {
-      reviewMarkID: {
+    return sequelize.define('review_marks', {
+      review_mark_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      reviewMark: {
+      review_mark: {
         type: DataTypes.TEXT,
         allowNull: false
       }
     }, {
-        tableName: 'reviewMarks'
+        tableName: 'review_marks'
       });
   },
   scheme() {
     return [
       {
-        reviewMarkID: "number",
-        reviewMark: "text"
+        review_mark_id: "number",
+        review_mark: "text"
       }
     ]
   }

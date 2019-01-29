@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-const reviewMarkModel = require('../models/ReviewMarks')
+const reviewMarkModel = require('../models/review_marks')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,

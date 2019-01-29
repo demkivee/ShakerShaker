@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-const drinksModel = require('../models/Drinks')
+const drinksModel = require('../models/drinks')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,

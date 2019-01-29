@@ -2,25 +2,25 @@
 
 module.exports = {
   function(sequelize, DataTypes) {
-    return sequelize.define('drinkType', {
-      typeID: {
+    return sequelize.define('drink_type', {
+      type_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      typeName: {
+      type_name: {
         type: DataTypes.TEXT,
         allowNull: false
       }
     }, {
-        tableName: 'drinkType'
+        tableName: 'drink_type'
       });
   },
   scheme() {
     return [
       {
-        typeID: "number",
-        typeName: "text"
+        type_id: "number",
+        type_name: "text"
       }
     ]
   }

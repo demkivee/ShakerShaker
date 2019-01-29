@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-const userModel = require('../models/Users')
+const userModel = require('../models/users')
 var dbconfig = require('../config/config')
 const pool = new Pool({
   user: dbconfig.development.username,
@@ -17,7 +17,11 @@ const getUsers = (request, response) => {
       throw error
     }
     //response.status(200).json(results.rows)
-    response.render('tableView', { title: 'users', rows: JSON.stringify(results.rows), scheme: JSON.stringify(userModel.scheme())});
+    response.render('tableView', {
+      title: 'users',
+      rows: JSON.stringify(results.rows),
+      scheme: JSON.stringify(userModel.scheme())
+    });
   })
 }
 

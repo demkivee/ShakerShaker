@@ -3,25 +3,21 @@
 module.exports = {
   function(sequelize, DataTypes) {
     return sequelize.define('reviews', {
-      reviewUser: {
+      review_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      reviewDrink: {
+      review_drink: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      reviewMark: {
+      review_mark: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'reviewMarks',
-          key: 'reviewMarkID'
-        }
+        allowNull: false
       },
-      reviewText: {
+      review_text: {
         type: DataTypes.TEXT,
         allowNull: true
       }
@@ -32,10 +28,10 @@ module.exports = {
   scheme() {
     return [
       {
-        reviewUser: "number",
-        reviewDrink: "number",
-        reviewMark: "number",
-        reviewText: "text"
+        review_user: "number",
+        review_drink: "number",
+        review_mark: "number",
+        review_text: "text"
       }
     ]
   }
