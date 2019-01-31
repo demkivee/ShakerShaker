@@ -19,7 +19,6 @@ module.exports = {
   scheme() {
     return [
       {
-        review_mark_id: "number",
         review_mark: "text"
       }
     ]

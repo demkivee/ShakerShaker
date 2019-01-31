@@ -1,6 +1,7 @@
 const Pool = require('pg').Pool
 const userModel = require('../models/users')
 var dbconfig = require('../config/config')
+var md5 = require('md5');
 const pool = new Pool({
   user: dbconfig.development.username,
   host: dbconfig.development.host,
@@ -37,24 +38,20 @@ const getUserById = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  var id = request.body.user_id,
-    name = request.body.user_name,
-    pass = request.body.user_pass;
-  console.log(request.body)
-  console.log(request.body.user_name)
-  console.log(name)
-  pool.query('INSERT INTO users (user_id, user_name, user_pass) VALUES ($1, $2, $3)', [id, name, pass], (error, results) => {
+  var name = request.body.user_name,
+    pass = md5(request.body.user_pass);
+  pool.query('INSERT INTO users (user_name, user_pass) VALUES ($1, $2)', [name, pass], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`User added with ID: ${id}`)
+    getUsers(request, response);
   })
 }
 
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id)
   var name = request.body.user_name,
-  pass = request.body.user_pass;
+  pass = md5(request.body.user_pass);
 
   pool.query(
     'UPDATE users SET user_name = $1, user_pass = $2 WHERE user_id = $3',
@@ -63,7 +60,7 @@ const updateUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User modified with ID: ${id}`)
+      getUsers(request, response);
     }
   )
 }
@@ -75,7 +72,7 @@ const deleteUser = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`User deleted with ID: ${id}`)
+    getUsers(request, response);
   })
 }
 

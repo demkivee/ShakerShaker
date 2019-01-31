@@ -48,7 +48,7 @@ const createReview = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Review added`)
+    getReview(request, response);
   })
 }
 
@@ -65,7 +65,7 @@ const updateReview = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Review modified`)
+      getReview(request, response);
     }
   )
 }
@@ -78,7 +78,7 @@ const deleteReview = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Review deleted`)
+    getReview(request, response);
   })
 }
 

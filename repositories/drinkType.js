@@ -36,14 +36,13 @@ const getDrinkTypeById = (request, response) => {
 }
 
 const createDrinkType = (request, response) => {
-  const name = request.body.type_name,
-    id = request.body.type_id
+  const name = request.body.type_name
 
-  pool.query('INSERT INTO drink_type (type_id, type_name) VALUES ($1, $2)', [id, name], (error, results) => {
+  pool.query('INSERT INTO drink_type (type_name) VALUES ($1)', [name], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`DrinkType added with ID: ${id}`)
+    getDrinkType(request, response);
   })
 }
 
@@ -58,7 +57,7 @@ const updateDrinkType = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`DrinkType modified with ID: ${id}`)
+      getDrinkType(request, response);
     }
   )
 }
@@ -70,7 +69,7 @@ const deleteDrinkType = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`DrinkType deleted with ID: ${id}`)
+    getDrinkType(request, response);
   })
 }
 

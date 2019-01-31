@@ -23,7 +23,6 @@ function(sequelize, DataTypes) {
 scheme() {
   return [
     {
-      user_id: "number",
       user_name: "text",
       user_pass: "text"
     }

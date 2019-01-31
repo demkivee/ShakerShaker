@@ -45,8 +45,26 @@ const createDrinkIngredient = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`DrinkIngredient connection added`)
+    getDrinkIngredient(request, response);
   })
+}
+
+const updateDrinkIngredient = (request, response) => {
+  const drink_id = parseInt(request.params.drink_id)
+  const ingredient_id = parseInt(request.params.ingredient_id)
+  var new_drink_id = request.body.drink_id,
+  new_ingredient_id = request.body.ingredient_id;
+
+  pool.query(
+    'UPDATE drink_ingredients SET drink_id = $1, ingredient_id = $2 WHERE drink_id = $3 AND ingredient_id = $4',
+    [drink_id, ingredient_id, new_drink_id, new_ingredient_id],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      getDrinkIngredient(request, response);
+    }
+  )
 }
 
 const deleteDrinkIngredient = (request, response) => {
@@ -57,7 +75,7 @@ const deleteDrinkIngredient = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`DrinkIngredient deleted`)
+    getDrinkIngredient(request, response);
   })
 }
 
@@ -66,5 +84,6 @@ module.exports = {
   getDrinkIngredient,
   getDrinkIngredientById,
   createDrinkIngredient,
+  updateDrinkIngredient,
   deleteDrinkIngredient,
 }

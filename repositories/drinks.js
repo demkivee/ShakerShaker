@@ -36,15 +36,14 @@ const getDrinkById = (request, response) => {
 }
 
 const createDrink = (request, response) => {
-  const id = request.body.drink_id,
-    name = request.body.drink_name,
+  const name = request.body.drink_name,
     type  = request.body.drink_type
 
-  pool.query('INSERT INTO drinks (drink_id, drink_name, drink_type) VALUES ($1, $2, $3)', [id, name, type], (error, results) => {
+  pool.query('INSERT INTO drinks (drink_name, drink_type) VALUES ($1, $2)', [name, type], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Drink added with ID: ${id}`)
+    getDrink(request, response);
   })
 }
 
@@ -60,7 +59,7 @@ const updateDrink = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Drink modified with ID: ${id}`)
+      getDrink(request, response);
     }
   )
 }
@@ -72,7 +71,7 @@ const deleteDrink = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Drink deleted with ID: ${id}`)
+    getDrink(request, response);
   })
 }
 

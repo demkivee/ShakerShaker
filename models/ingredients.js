@@ -19,7 +19,6 @@ module.exports = {
   scheme() {
     return [
       {
-        ingredient_id: "number",
         ingredient_name: "text"
       }
     ]

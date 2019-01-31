@@ -37,14 +37,13 @@ const getReviewMarkById = (request, response) => {
 }
 
 const createReviewMark = (request, response) => {
-  const name  = request.body.review_mark,
-    id = request.body.review_mark_id
+  const name  = request.body.review_mark
 
-  pool.query('INSERT INTO review_marks (review_mark_id, review_mark) VALUES ($1, $2)', [id, name], (error, results) => {
+  pool.query('INSERT INTO review_marks (review_mark) VALUES ($1)', [name], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`ReviewMark added with ID: ${id}`)
+    getReviewMark(request, response);
   })
 }
 
@@ -59,7 +58,7 @@ const updateReviewMark = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`ReviewMark modified with ID: ${id}`)
+      getReviewMark(request, response);
     }
   )
 }
@@ -71,7 +70,7 @@ const deleteReviewMark = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`ReviewMark deleted with ID: ${id}`)
+    getReviewMark(request, response);
   })
 }
 

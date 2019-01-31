@@ -19,7 +19,6 @@ module.exports = {
   scheme() {
     return [
       {
-        type_id: "number",
         type_name: "text"
       }
     ]

@@ -36,14 +36,13 @@ const getIngredientById = (request, response) => {
 }
 
 const createIngredient = (request, response) => {
-  const id = request.body.ingredient_id,
-    name = request.body.ingredient_name;
+  const name = request.body.ingredient_name;
 
-  pool.query('INSERT INTO ingredients (ingredient_id, ingredient_name) VALUES ($1, $2)', [id, name], (error, results) => {
+  pool.query('INSERT INTO ingredients (ingredient_name) VALUES ($1)', [name], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Ingredient added with ID: ${id}`)
+    getIngredient(request, response);
   })
 }
 
@@ -58,7 +57,7 @@ const updateIngredient = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Ingredient modified with ID: ${id}`)
+      getIngredient(request, response);
     }
   )
 }
@@ -70,7 +69,7 @@ const deleteIngredient = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`Ingredient deleted with ID: ${id}`)
+    getIngredient(request, response);
   })
 }
 

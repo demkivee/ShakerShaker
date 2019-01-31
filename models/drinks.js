@@ -23,8 +23,7 @@ module.exports = {
   scheme() {
     return [
       {
-        drink_id: "number",
-        drink_name: "number",
+        drink_name: "text",
         drink_type: "number"
       }
     ]
